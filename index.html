@@ -248,7 +248,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/07/26/你好，Hexo/" itemprop="url">你好，Hexo</a></h1>
+                <a class="post-title-link" href="/2018/07/26/你好，Hexo/" itemprop="url">Jenkins 使用手册</a></h1>
         
 
         <div class="post-meta">
@@ -300,7 +300,71 @@
       
         
           
-            
+            <p>jenkins用户手册</p>
+<p>修订记录<br>修订日期    版本号    修订说明    修订人    审核人<br>20150717    1.0    第一版    白杰<br>20150721    1.1    修改手册格式<br>增加hpi文件<br>增加配套图片说明    白杰<br>20150722    1.2    增加自动构建<br>增加分布式构建    白杰<br>20150727    1.3    增加FAQ<br>调整配套图片    白杰<br>20150730    1.4    增加后台查找源代码位置    白杰<br>20150804    1.5    增加备份插件thinBackup    白杰<br>20151104    1.6    增加subversion.hpi插件作用及降级    白杰<br>20151112    1.7    增加jenkins角色关系<br>增加排查svn info问题方法<br>增加源码安装svn    白杰<br>20151210    1.8    增加Jenkins的SVN插件未更新到最新代码解决办法    白杰    </p>
+<p>1    目录<br>jenkins用户手册    1<br>2    Jenkins角色关系    6<br>3    安装和设置    6<br>3.1    安装rpm包    6<br>3.2    设置基本环境    6<br>3.2.1    设置iptables    6<br>3.2.2    设置jdk    7<br>3.2.3    设置jenkins    7<br>3.3    安装jenkins插件    7<br>3.4    subversion.hpi插件作用及降级    9<br>4    安装包构建过程    10<br>4.1    登录    10<br>4.2    增加凭据    10<br>4.3    新建任务    11<br>4.4    配置任务    12<br>4.4.1    打开配置页面    12<br>4.4.2    参数化构建（可选）    13<br>4.4.3    添加源码管理    14<br>4.4.4    在编译过程中隐藏密码（可选）    15<br>4.4.5    设置构建名称    15<br>4.4.6    设置执行脚本    16<br>4.4.7    指出归档文件的存放位置    16<br>4.5    构建    17<br>4.5.1    手动构建    17<br>4.5.2    自动构建    17<br>4.5.3    分布式构建    18<br>4.6    查看构建过程    22<br>5    升级包构建过程    22<br>5.1    登录    22<br>5.2    新建任务    22<br>5.3    配置任务    22<br>5.3.1    打开配置页面    22<br>5.3.2    参数化构建（可选）    23<br>5.3.3    添加源代码管理    23<br>5.3.4    在编译过程中隐藏密码（可选）    23<br>5.3.5    设置构建名称    23<br>5.3.6    设置执行脚本    23<br>5.3.7    指出归档文件的存放位置    24<br>5.4    构建    24<br>6    安全设置和权限控制    24<br>6.1    用户注册    24<br>6.2    全局权限设置    25<br>6.3    项目安全设置    26<br>6.4    用户登录    27<br>6.5    其他可选插件    29<br>7    备份恢复    29<br>7.1    安装插件    29<br>7.2    备份设置    29<br>7.3    备份    31<br>7.4    恢复    31<br>8    附录    32<br>8.1    jenkins_plugins压缩包    32<br>8.2    存在问题的插件    32<br>8.2.1    svn-release-mgr.hpi    32<br>9    FAQ    33<br>9.1    先升级插件，然后卸载插件，导致系统不能正常启动。    33<br>9.2    如何在后台查找源代码位置？    33<br>9.3    如何后台重启jenkins服务？    34<br>9.4    如何排查节点上运行svn info失败问题？    34<br>9.5    如何通过源码包安装subversion-1.8.11？    35<br>9.5.1    依赖的其他源码包如下：    35<br>9.5.2    安装顺序为:    35<br>9.5.3    安装步骤：    35</p>
+<p>2    Jenkins角色关系<br>如图 1，描述了jenkins管理员和项目管理员的分工和关系，之后的各章节详细讲述各部分内容，请大家根据自己的角色阅读后续相关内容。</p>
+<p>图 1<br>3    安装和设置<br>3.1    安装rpm包<br>安装rpm包jdk-7u71-linux-i586.rpm和jenkins-1.620-1.1.noarch.rpm。<br>3.2    设置基本环境<br>3.2.1    设置iptables<br>Iptables配置文件是/etc/sysconfig/iptables， jenkins默认使用的8080端口没有放行。关闭iptables：</p>
+<h1 id="etc-init-d-iptables-stop"><a href="#etc-init-d-iptables-stop" class="headerlink" title="/etc/init.d/iptables stop"></a>/etc/init.d/iptables stop</h1><p>#chkconfig iptables off<br>3.2.2    设置jdk<br>vi ~/.bashrc<br>在.bashrc中加入以下内容：<br>export JAVA_HOME=/usr/java/jdk1.7.0_71<br>export JRE_HOME=/usr/java/jdk1.7.0_71/jre<br>export CLASSPATH=/usr/java/jdk1.7.0_71/lib<br>export PATH=$PATH:$JAVA_HOME/bin<br>手动执行以下.bashrc脚本：</p>
+<p>#source ~/.bashrc<br>3.2.3    设置jenkins<br>Jenkins配置文件位置：/etc/sysconfig/Jenkins<br>3.2.3.1    设置JENKINS_USER<br>默认是jenkins。<br>如果不关注安全，可以改成root；<br>如果使用默认用户jenkins，修改/etc/password<br>为jenkins:x:498:499:Jenkins Continuous Integration Server:/var/lib/jenkins:/bin/bash。</p>
+<p>3.2.3.2    设置JENKINS_PORT<br>默认”8080”。<br>如果和其他服务端口冲突可以调整。</p>
+<p>3.3    安装jenkins插件<br>参照4.1登录主界面，点击图 2左侧Manage Jenkins,然后点击右侧的Manage Plugins，进入图 3，点击Advanced，浏览，选中插件，upload，进入图 4，勾选Restart Jenkins when installation is complete and no jobs are running，插件上传完自动重启。</p>
+<p>图 2</p>
+<p>图 3</p>
+<p>图 4<br>我们现在用到的插件打包放在附录里，如下：<br>a)    build-name-setter.hpi #设置构建名称<br>b)    token-macro.hpi #build-name-setter.hpi插件需要<br>c)    subversion.hpi #svn插件，可选<br>d)    mapdb-api.hpi # subversion.hpi插件需要<br>e)    scm-api.hpi # subversion.hpi插件需要<br>f)    mask-passwords.hpi#隐藏password<br>3.4    subversion.hpi插件作用及降级<br>subversion.hpi 插件，安装后将在图 15显示Credentials，出于安全性考虑，可以不安装此插件，或者安装后Unpin降级到jenkins自带版本，操作如下：点击图 3中的Installed按钮，如图 5，找到Subversion Plug-in插件，点击Unpin按钮，如图 6，最后后台重启jenkins服务（参考9.3）。</p>
+<p>图 5</p>
+<p>图 6<br>4    安装包构建过程<br>4.1    登录<br>打开浏览器，输入localhost:8080，进入主界面。<br>4.2    增加凭据<br>如果未安装subversion.hpi插件，跳过此小节。<br>点击图 7Credentials，进入图 8，点击Global credentials (unrestricted)，进入图 9，点击Add Credentials，进入图 10，由于4.4配置任务中连接svn时使用的是用户密码方式，所以这里Kind选用Username with password，填上用户密码（多个svn用户同名，可以填上描述信息区分），最后点击OK按钮。</p>
+<p>图 7</p>
+<p>图 8</p>
+<p>图 9</p>
+<p>图 10<br>4.3    新建任务<br>创建一个最常见的“freestyle project”的过程。点击图 11左侧New Item，在右侧Item name输入任务名称：tanzhen，选择freestyle project，点击OK按钮。</p>
+<p>图 11<br>4.4    配置任务<br>4.4.1    打开配置页面<br>点击图 12中的tanzhen，然后点击图 13的Configure。</p>
+<p>图 12</p>
+<p>图 13</p>
+<p>4.4.2    参数化构建（可选）<br>在后续执行脚本等步骤中需要参数，如图 14，勾选上This build is parameterized，点击Add Parameter，选择需要的类型。</p>
+<p>图 14<br>4.4.3    添加源码管理<br>在图 15选择Subversion，在Repository URL填上svn服务器地址，在Credentials选择对应的用户密码，Local module directory是本地的存放位置（相对路径）添加多个模块时必须设置。</p>
+<p>图 15<br>如果未安装subversion.hpi插件，显示如图 16，点击enter credential，如图 17，选择Username/password authentication，输入User name和Password，点击OK按钮。</p>
+<p>图 16</p>
+<p>图 17<br>4.4.4    在编译过程中隐藏密码（可选）<br>需要在图 18勾选上Mask passwords。</p>
+<p>图 18</p>
+<p>4.4.5    设置构建名称<br>在源码管理中只有一个模块时，可以在图 19勾选上Set Build Name，在Build Name中写上环境变量，在构建完成后就会在Build History显示，如图 20。</p>
+<p>图 19</p>
+<p>图 20</p>
+<p>4.4.6    设置执行脚本<br>在图 21的Command中填上要执行的脚本。探针项目的构建顺序，中间产生的补丁包和最后生成的安装包都封装在build.sh脚本。如果关心打包组和用户，在脚本里使用tar打包时加上–group xxx –owner xxx指定打包文件的组和用户。</p>
+<p>图 21</p>
+<p>4.4.7    指出归档文件的存放位置<br>目的是方便后续的权限控制。如图 22操作方法：点击Add post-build action选择Archive the artifacts，在File to archive中填上要归档的文件，多个文件用英文逗号分割，路径为相对workspace的位置。</p>
+<p>图 22<br>所有配置完成后，点击 和 按钮。<br>4.5    构建<br>4.5.1    手动构建<br>点击图 23左侧Build with Parameters，开始构建。</p>
+<p>图 23<br>4.5.2    自动构建<br>打开配置页面，如图 24在构建触发器这块，有如下几种自动构建方式：<br>Poll SCM ：这是CI 系统中常见的选项。当您选择此选项，您可以指定一个定时作业表达式来定义Jenkins每隔多久检查一下您源代码仓库的变化。如果发现变化，就执行一次构建。例如，表达式中填写0,15,30,45 <em> </em> <em> </em>将使Jenkins每隔15分钟就检查一次您源码仓库的变化。<br>Build periodically ：此选项仅仅通知Jenkins按指定的频率对项目进行构建，而不管SCM是否有变化。如果想在这个Job中运行一些测试用例的话，它就很有帮助。</p>
+<p>图 24<br>4.5.3    分布式构建<br>分布式构建(在Jenkins的配置中叫做节点)，分布式构建能够让同一套代码在不同的环境(如：Windows和Linux系统)中编译等。而且Jenkins构建的代码和产物最后自动拷贝到主节点。<br>注意：如果节点主机上不存在JDK，Jenkins会去自动下载，但Oracle对程序自动下载做了限制，会导致下载失败，然后一直循环这个问题。<br>建议：所有Unix或者Windows机器都预先手动安装JDK，且环境路径统一。<br>4.5.3.1    新建节点<br>点击图 25左侧Manage Jenkins后点击右侧Manage Nodes；然后点击图 26左侧的New Node，在右侧填上节点名称，选择Dumb Slave新建一个节点，完成后点击OK按钮。</p>
+<p>图 25</p>
+<p>图 26<br>4.5.3.2    配置节点<br>如图 27，关键参数说明：<br>Name：节点名称</p>
+<h1 id="of-executors：最大同时构建数量-根据机器的性能定，单颗四核cpu建议不要超过5-【必须为数字】"><a href="#of-executors：最大同时构建数量-根据机器的性能定，单颗四核cpu建议不要超过5-【必须为数字】" class="headerlink" title="of executors：最大同时构建数量(根据机器的性能定，单颗四核cpu建议不要超过5)【必须为数字】"></a>of executors：最大同时构建数量(根据机器的性能定，单颗四核cpu建议不要超过5)【必须为数字】</h1><p>Remote root directory：节点的根目录(注意：如果目录不存在，会自动创建目录。你必须对该目录有读写权限，不然会报错：hudson.util.IOException2: Failed to copy xxxx)<br>Labels：标记(又叫做标签)用来对多节点分组,标记之间用空格分隔.例如’refression java6’将会把一个节点标记上’regression’和’java6’.<br>　　举例来说,如果你有多个Windows系统的构建节点并且你的Job也需要在Windows系统上运行,那么你可以配置所有的Windows系统节点都标记为’windows’, 然后把Job也标记为’windows’.这样的话你的Job就不会运行在除了Windows节点以外的其它节点之上了.<br>用法：尽可能的使用这个节点/只允许运行绑定到这台机器的Job(根据你的需求，二选一)<br>Launch method：运行方式有四个选项。建议选择第1、2种方式配置。详细如下：<br>【推荐】Launch slave agents on Unix machines via SSH   在Unix(包括Linux)机器上通过SSH通道连接节点 (适用于Unix和Linux)<br>　　Host：节点主机的ip地址<br>　　Credentials：凭据，必须填写。<br>　　Port：端口默认22<br>　　JavaPath：[可选]JDK路径，默认和master节点相同。路径必须指定到Java程序，如：/path/bin/java<br>　　 测试可以使用Unix命令，会自动拼接在[SSH] Starting slave process:[Prefix Start Slave Command] cd ‘/path’ &amp;&amp; /path/bin/java -jar slave.jar [Suffix Start Slave Command]<br>【推荐】Launch slave agents via Java Web Start   通过Java Web Start连接节点 (适用于所有支持Java程序的系统)<br>　　Tunnel connection through：[可选]在端口转发这种情况下使用<br>　　这种方法的缺点：如果该节点宕机了，主节点无法自动重启它。<br>配置完成后，点击save按钮。</p>
+<p>图 27<br>4.5.3.3    使用节点<br>如图 28，在任务的配置界面上，勾选Restrict where this project can be run，在Label Expression中填上节点的Labels。</p>
+<p>图 28<br>4.6    查看构建过程<br>点击图 29中Console Output。</p>
+<p>图 29</p>
+<p>Jenkins-&gt; New Item-&gt; Item name:xxx, Freestyle project,OK.<br>在Enable project-based security, 开发人员赋有所有权限，版本制作人员赋有读job的权限。如果<br>5    升级包构建过程<br>5.1    登录<br>参考4.1。<br>5.2    新建任务<br>参考4.3。<br>5.3    配置任务<br>5.3.1    打开配置页面<br>参考4.4.1。<br>5.3.2    参数化构建（可选）<br>参考4.4.2。<br>5.3.3    添加源代码管理<br>和构建安装包不同的是，需要指定基础代码和最新代码，如图 30在基础代码Repository URL填上svn服务器地址并使用@指出版本号。其他配置参考4.4.3。</p>
+<p>图 30<br>如果未安装subversion.hpi插件，参考4.4.3，设置svn用户和密码。<br>5.3.4    在编译过程中隐藏密码（可选）<br>参考4.4.4。<br>5.3.5    设置构建名称<br>参考4.4.5。<br>5.3.6    设置执行脚本<br>和构建安装包不同的是，脚本中要对基础代码和最新代码分别编译，并对编译后的问题做比较，将差异文件做成升级包。其他配置参考4.4.6。<br>5.3.7    指出归档文件的存放位置<br>参考4.4.7。<br>5.4    构建<br>参考4.5。<br>6    安全设置和权限控制<br>用户为管理员，项目经理和构建人员。<br>6.1    用户注册<br>点击图 31中左侧Manage Jenkins，右侧Manage Users，进入界面图 32，点击左侧Create User，在右侧填写用户基本信息，点击 按钮后，用户builder添加完成。</p>
+<p>图 31</p>
+<p>图 32</p>
+<p>6.2    全局权限设置<br>在点击图 33左侧Manage Jenkins后，点击右侧Configure Global Security，进入图 34，在权限策略中我们使用项目矩阵授权策略，管理员需要有Overall(Administer) 权限，项目经理需要有Overall(Read)和Job (Build，Cancel，Configure，Create，Delete，Discover，Workspace)权限，构建人员需要有Overall(Read)权限。</p>
+<p>图 33</p>
+<p>图 34<br>6.3    项目安全设置<br>项目经理登录，点击项目配置后，进入界面图 35，启用项目安全，添加用户，赋予权限，设置好后点击 和 按钮。</p>
+<p>图 35<br>6.4    用户登录<br>在输入用户密码，点击log in，即可登录。管理员登录后如图 36，可以看到所有的项目并能做所有的配置操作；项目经理登录后如图 37，只能看到自己负责的项目，但不能对jenkins进行管理，点击项目进入图 38，管理自己负责的项目；构建人员登录后如图 39，只能看到自己负责的项目，点击项目进入图 40，可以构建项目并可以看到构建完成后的安装包。</p>
+<p>图 36</p>
+<p>图 37 </p>
+<p>图 38</p>
+<p>图 39</p>
+<p>图 40<br>6.5    其他可选插件<br>role-strategy.hpi：支持角色的配置。<br>介绍及下载页面：<a href="https://wiki.jenkins-ci.org/display/JENKINS/Role+Strategy+Plugin" target="_blank" rel="noopener">https://wiki.jenkins-ci.org/display/JENKINS/Role+Strategy+Plugin</a><br>7    备份恢复<br>7.1    安装插件<br>安装插件thinBackup.hpi，参考3.3。<br>7.2    备份设置<br>点击图 41左侧Manage Jenkins，之后点击右侧的ThinBackup，进入图 42，点击Settings进入图 43，指定备份路径和备份计划，默认备份任务，其他可选项包括：Backup build results、Backup ‘userContent’ folder、Backup next build number file、Clean up differential backups和Move old backups to ZIP files，设置完成后点击 按钮。</p>
+<p>图 41</p>
+<p>图 42</p>
+<p>图 43<br>7.3    备份<br>点击图 42 中Backup Now，立即执行备份；如果在图 43指定了Backup schedule for full backups则按计划时间备份。<br>7.4    恢复<br>点击图 42中的Restore，进入图 44，选择恢复的日期时间，同时勾选Restore next build number file (if found in backup)，点击 按钮恢复。</p>
+<p>图 44<br>8    附录<br>8.1    jenkins_plugins压缩包</p>
+<p>8.2    存在问题的插件<br>8.2.1    svn-release-mgr.hpi<br>功能：列出指定个数的svn历史版本，一键构建历史版本文件。<br>缺陷：安装并启用此插件后，发现下载源代码时，软连接文件被修改成成普通文件。</p>
+<p>9    FAQ<br>9.1    先升级插件，然后卸载插件，导致系统不能正常启动。<br>解决办法：登录后台，在/var/lib/jenkins/plugins目录下找到卸载插件的bak文件，将其恢复，重启jenkins。<br>9.2    如何在后台查找源代码位置？<br>源代码相对路径参考图 15，然后点击图 45中Manage Jenkins，在右侧点击Configure System，进入图 46，可以看到Home directory，登录后台，执行命令：<br>cd  /var/lib/jenkins/jobs/tanzhen/workspace/nethawka<br>即可看到下载的代码，其中tanzhen为任务名称。<br>图 45</p>
+<p>图 46<br>9.3    如何后台重启jenkins服务？<br>在后台执行如下命令：</p>
+<h1 id="etc-init-d-jenkins-restart"><a href="#etc-init-d-jenkins-restart" class="headerlink" title="/etc/init.d/jenkins restart"></a>/etc/init.d/jenkins restart</h1><p>9.4    如何排查节点上运行svn info失败问题？<br>如果在节点编译项目，svn info运行失败，错误提示信息如下：<br>svn: E155036: Please see the ‘svn upgrade’ command<br>原因：<br>当Jenkins使用scm的svn插件时，Jenkins支持的SVN版本与机器上安装的SVN版本不匹配导致的。<br>解决方法：<br>查看当前Jenkins使用的SVN版本，然后卸载机器上原来的SVN版本，安装对应的版本，SVN安装后需要重启机器。<br>查看Jenkins支持的最高版本在这里查看：http://主机名:8080/configure，查看Subversion Workspace Version。<br>9.5    如何通过源码包安装subversion-1.8.11？<br>9.5.1    依赖的其他源码包如下：</p>
+<p>9.5.2    安装顺序为:<br>1)    apr-1.5.1.tar.bz2<br>2)    apr-util-1.5.4.tar.bz2<br>3)    sqlite-autoconf-3080802.tar.gz<br>4)    subversion-1.8.11.tar.bz2<br>9.5.3    安装步骤：<br>9.5.3.1    首先安装apr 指定安装到/usr/local/apr<br>tar jxvf apr-1.5.1.tar.bz2<br>cd apr-1.5.1<br>./configure –prefix=/usr/local/apr<br>make &amp; make install<br>9.5.3.2    然后安装apr-util，指定安装到/usr/local/apr-util<br>tar jxvf apr-util-1.5.4.tar.gz<br>cd apr-util-1.5.4<br>./configure –prefix=/usr/local/apr-util –with-apr=/usr/local/apr<br>make &amp; make install<br>9.5.3.3    再安装sqlite-autoconf-3080802.tar.gz<br>tar zxvf sqlite-autoconf-3080802.tar.gz<br>cd sqlite-autoconf-3080802<br>./configure<br>make &amp; make install<br>9.5.3.4    最后安装subversion-1.8.11.tar.bz2<br>经过上面的步骤我们就可以安装其他程序了，比如编译安装svn的时候指定apr和apr-util指定svn位置/usr/local/subversion 同时也要指定apr和apr-util位置:<br>cd subversion-1.8.11.tar.gz<br>./configure –prefix=/usr/local/subversion –with-apr=/usr/local/apr –with-apr-util=/usr/local/apr-util<br>make &amp; make install<br>9.5.3.5    Jenkins的SVN插件未更新到最新代码怎么办？<br>Jenkins的svn插件是使用时间标签下载，而不是取HEAD，因此如果svn服务器的提交代码时间比Jenkins的当前时间晚，该代码就不会被更新。查看某个Jenkins Job的构建日志，在使用SVN插件更新代码时，日志如下： Updating svn://repository_path at revision ‘2015-08-06T08:48:12.490 +0800’ 从上面可以看出来，该次构建相应的revision确实是构建时间戳。<br>9.5.3.5.1    解决方法一：<br>修改svn地址，在svn地址后增加@HEAD<br>构建Jenkins Job后日志输出如下： Updating svn://repository_path@HEAD at revision HEAD<br>而且这样确保更新的代码是最新的，不会因为Jenkins服务器与SVN服务器之间的时间差受到影响。 注：HEAD是SVN revision关键字，表示版本库中的最新版本。<br>9.5.3.5.2    解决方法二：<br>架设时间服务器，svn服务器、jenkins服务器定期和时间服务器同步时间。</p>
+
           
         
       
