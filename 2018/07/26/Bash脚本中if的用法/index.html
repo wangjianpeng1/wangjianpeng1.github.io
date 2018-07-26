@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="Hello, 这是我的第一条博客。">
+<meta name="description" content="使用unix/linux的程序人员几乎都写过shell脚本，但这其中很多人都是为了完成功能而在网上找代码段，这样写出来的shell脚本在功能方面当然是没有什么问题，但是这样的方式不能写出优雅的shell脚本。从今天开始，starfe就将自己平时在书写shell脚本过程中的经历做一总结，力图形成一个系列—“书写优雅的shell脚本”。在此，对“优雅”一词的定义有4点：（1）健壮；（2）结构清晰；（3">
 <meta property="og:type" content="article">
-<meta property="og:title" content="你好，Hexo">
-<meta property="og:url" content="http://yoursite.com/2018/07/26/你好，Hexo/index.html">
+<meta property="og:title" content="Bash脚本中if的用法">
+<meta property="og:url" content="http://yoursite.com/2018/07/26/Bash脚本中if的用法/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Hello, 这是我的第一条博客。">
+<meta property="og:description" content="使用unix/linux的程序人员几乎都写过shell脚本，但这其中很多人都是为了完成功能而在网上找代码段，这样写出来的shell脚本在功能方面当然是没有什么问题，但是这样的方式不能写出优雅的shell脚本。从今天开始，starfe就将自己平时在书写shell脚本过程中的经历做一总结，力图形成一个系列—“书写优雅的shell脚本”。在此，对“优雅”一词的定义有4点：（1）健壮；（2）结构清晰；（3">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-07-26T10:27:51.552Z">
+<meta property="og:updated_time" content="2018-07-26T10:35:17.592Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="你好，Hexo">
-<meta name="twitter:description" content="Hello, 这是我的第一条博客。">
+<meta name="twitter:title" content="Bash脚本中if的用法">
+<meta name="twitter:description" content="使用unix/linux的程序人员几乎都写过shell脚本，但这其中很多人都是为了完成功能而在网上找代码段，这样写出来的shell脚本在功能方面当然是没有什么问题，但是这样的方式不能写出优雅的shell脚本。从今天开始，starfe就将自己平时在书写shell脚本过程中的经历做一总结，力图形成一个系列—“书写优雅的shell脚本”。在此，对“优雅”一词的定义有4点：（1）健壮；（2）结构清晰；（3">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/07/26/你好，Hexo/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/07/26/Bash脚本中if的用法/"/>
 
 
 
 
 
-  <title>你好，Hexo | Hexo</title>
+  <title>Bash脚本中if的用法 | Hexo</title>
   
 
 
@@ -232,7 +232,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/26/你好，Hexo/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/26/Bash脚本中if的用法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="John Doe">
@@ -249,7 +249,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">你好，Hexo</h1>
+          <h1 class="post-title" itemprop="name headline">Bash脚本中if的用法</h1>
         
 
         <div class="post-meta">
@@ -261,7 +261,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-26T17:40:24+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-26T18:30:33+08:00">
                 2018-07-26
               </time>
             
@@ -299,7 +299,24 @@
       
 
       
-        <p>Hello, 这是我的第一条博客。</p>
+        <p>使用unix/linux的程序人员几乎都写过shell脚本，但这其中很多人都是为了完成功能而在网上找代码段，这样写出来的shell脚本在功能方面当然是没有什么问题，但是这样的方式不能写出优雅的shell脚本。<br>从今天开始，starfe就将自己平时在书写shell脚本过程中的经历做一总结，力图形成一个系列—“书写优雅的shell脚本”。<br>在此，对“优雅”一词的定义有4点：（1）健壮；（2）结构清晰；（3）性能好；（4）力求简单。</p>
+<p>好了，废话不多说，开始今天的主题：if语句</p>
+<ol>
+<li>if判断式<br>(1)<br>if [ 条件判断一 ] &amp;&amp;(||) [ 条件判断二 ]; then<br>xxx<br>fi</li>
+</ol>
+<p>(2)<br>if [ 条件判断一 ] &amp;&amp;(||) [ 条件判断二 ]; then<br>xxx<br>else<br>xxx<br>fi</p>
+<p>(3)<br>if [ 条件判断一 ] &amp;&amp;(||) [ 条件判断二 ]; then<br>xxx<br>elif [ 条件判断三 ] &amp;&amp;(||) [ 条件判断四 ]; then<br>xxx<br>…<br>else<br>xxxx<br>fi</p>
+<ol start="2">
+<li>if中的二元比较</li>
+</ol>
+<p>2.1 整数比较<br>     -eq 等于,如:if [ $a -eq $b ]<br>     -ne 不等于,如:if [ $a -ne $b ]<br>     -gt 大于,如:if [ $a -gt $b ]<br>     -ge 大于等于,如:if [ $a -ge $b ]<br>     -lt 小于,如:if [ $a -lt $b ]<br>     -le 小于等于,如:if [ $a -le $b ]<br>     &gt;大于,如:[ $a &gt; $b ]<br>     &gt;= 大于等于,如:[ $a &gt;= $b ]<br>     注：以上其实不是健壮的代码，上面这些代码在有些情况下会存现错误提示，而真正健壮的是使用双括号来表示，即if [[ $a -eq $b ]]<br>这是为何？做个测试如下：<br>    a=2;b=3;if [ a -gt $b ]; then echo “true”;fi<br>    [: -gt: unary operator expected  //报错<br>      而改为$&gt;if [[ a &gt; 3 ]]; then echo “true”;fi  //不再报错，这也是我们所期望的<br>    究其原因，是因为如果变量a值为空(由于shell是弱类型语言，对变量赋值都是当字符串对待)，那么就成了 [ -gt 3 ] ，显然 [ 和 $b 不相等并且缺少了 [ 符号，所以报了这样的错误。当然不总是出错，如果变量a值不为空，程序就正常了，所以这样的错误还是很隐蔽的。<br>    或者用下面的方法也能避免这种错 误：if [ “$a”x -gt “$b”x ]; then   echo “true”; fi。当然，x也可以是其他字符。顺便提一点，shell中有没有双引号在很多情况下是一致的。</p>
+<p>2.2 字符串比较<br>等于,如:if [ $a = $b ]或if [ $a == $b ],与=等价<br>不等于,如:if [ $a != $b ]<br>大于,在ASCII字母顺序下.如:if [ $a > $b ]<br>小于,在ASCII字母顺序下.如:if [ $a \&lt; $b ] 注意：要使用转义符“\”。</p>
+<p>2.3 文件比较<br>[<br> 文件1 -nt 文件2 ] 为真 如果 文件1 has been changed more recently than 文件2, or 如果文件1 存在 而且文件2<br> does not。</p>
+<p>[ 文件1 -ot 文件2 ] 为真 如果 文件1 比 文件2 旧, 或者 文件2 存在而且<br> 文件1 不存在。</p>
+<p>[ 文件1 -ef 文件2 ] 为真 如果 文件1 而且 文件2 refer to the<br> same device 而且 inode numbers。</p>
+<p>2.4 表达式比较<br>[ 表达式1 -a 表达式2 ] 如果表达式1 而且表达式2 同时为真则为真 。</p>
+<p>[ 表达式1 -o 表达式2 ] 如果表达式1 或者表达式2 其中之一为真则为真。</p>
+<p>3.if中的一元比较<br>[ -a 文件 ] 如果文件存在为真。<br>[ -b 文件 ] 如果 文件 存在 而且 是一个 块-特殊 文件为真。<br>[ -c 文件 ] 为真 如果 文件 存在 而且 是一个 字-特殊 文件。<br>[ -d 文件 ] 为真 如果 文件 存在 而且 是一个 目录。<br>[ -e 文件 ] 为真 如果 文件 存在。<br>[ -f 文件 ] 为真 如果 文件 存在 而且 是一个 普通 文件。<br>[ -g 文件 ] 为真 如果 文件 存在 而且 已经设置了他的 SGID 位。<br>[ -h 文件 ] 为真 如果 文件 存在 而且 是一个 符号连接。<br>[ -k 文件 ] 为真 如果 文件 存在 而且 他的粘住位已经设置。<br>[ -p 文件 ] 为真 如果 文件 存在 而且 是一个 已经命名的管道 (F 如果O)。<br>[ -r 文件 ] 为真 如果 文件 存在 而且 是可读的。<br>[ -s 文件 ] 为真 如果 文件 存在 而且 比零字节大。<br>[ -t FD ] 为真 如果 文件 文件描述符已经打开 而且 指向一个终端。<br>[ -u 文件 ] 为真 如果 文件 存在 而且 已经设置了他的 SUID (set user ID)位。<br>[ -w 文件 ] 为真 如果 文件 为真 如果 文件 存在 而且 是可写的。<br>[ -x 文件 ] 为真 如果 文件 存在 而且 是可执行的。<br>[ -O 文件 ] 为真 如果 文件 存在 而且 属于有效用户ID。<br>[ -G 文件 ] 为真 如果 文件 存在 而且 属于有效组ID。<br>[ -L 文件 ] 为真 如果 文件 存在 而且 是一个 符号连接。<br>[ -N 文件 ] 为真 如果 文件 存在 而且 has been mod 如果ied since it was last read。<br>[ -S 文件 ] 为真 如果 文件 存在 而且 是一个 socket。<br>[ -o 选项名 ] 为真 如果 shell 选项 “选项名” 开启。<br>[ -z STRING ] 为真 如果 “STRING”的长度是零。<br>[ -n STRING ] 或者 [ STRING ] 为真 “STRING”的长度是非零值。<br>[ ! EXPR ] 如果EXPR 为假则为真。<br>[ ( EXPR ) ] 返回EXPR 的值。 这样可以用来忽略正常的操作符优先级。</p>
 
       
     </div>
@@ -324,8 +341,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/07/25/hello-world/" rel="next" title="Hello World">
-                <i class="fa fa-chevron-left"></i> Hello World
+              <a href="/2018/07/26/你好，Hexo/" rel="next" title="你好，Hexo">
+                <i class="fa fa-chevron-left"></i> 你好，Hexo
               </a>
             
           </div>
@@ -333,10 +350,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/07/26/Bash脚本中if的用法/" rel="prev" title="Bash脚本中if的用法">
-                Bash脚本中if的用法 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
