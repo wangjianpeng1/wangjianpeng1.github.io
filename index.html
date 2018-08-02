@@ -366,7 +366,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/26/你好，Hexo/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/26/vim在文件之间切换/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="John Doe">
@@ -385,7 +385,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/07/26/你好，Hexo/" itemprop="url">你好，Hexo</a></h1>
+                <a class="post-title-link" href="/2018/07/26/vim在文件之间切换/" itemprop="url">你好，Hexo</a></h1>
         
 
         <div class="post-meta">
@@ -437,7 +437,10 @@
       
         
           
-            <p>Hello, 这是我的第一条博客。</p>
+            <p>vim——打开多个文件、同时显示多个文件、在文件之间切换</p>
+<p>打开多个文件：<br>1.vim还没有启动的时候：<br>在终端里输入<br>vim file1 file2 … filen便可以打开所有想要打开的文件<br>2.vim已经启动<br>输入<br>:open file<br>可以再打开一个文件，并且此时vim里会显示出file文件的内容。</p>
+<p>同时显示多个文件：<br>:split<br>:vsplit</p>
+<p>在文件之间切换：<br>1.文件间切换<br>Ctrl+6—下一个文件<br>:bn—下一个文件<br>:bp—上一个文件<br>对于用(v)split在多个窗格中打开的文件，这种方法只会在当前窗格中切换不同的文件。<br>2.在窗格间切换的方法<br>Ctrl+w+方向键——切换到前／下／上／后一个窗格<br>Ctrl+w+h/j/k/l ——同上<br>Ctrl+ww——依次向后切换到下一个窗格中</p>
 
           
         
